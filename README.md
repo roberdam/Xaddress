@@ -69,7 +69,7 @@ ruby decode.rb "7150 MAGICAL PEARL - Maluku, Indonesia"
  
 ## ALTERNATIVES:
 * [What3words] (http://what3words.com) -  Uses 3 words to define any location *percolator.surmount.retooled*, commercial option with a patented algorithm.
-* [Geohash] (http://http://geohash.org/) - Free and Opensource *qyu1g0by7*
+* [Geohash] (http://geohash.org/) - Free and Opensource *qyu1g0by7*
 * [Mapcode] (http://www.mapcode.com/) - Free with Apache License Version 2.0. *VQ6.1MFD*
 * [Openlocationcode] (http://openlocationcode.com/) - Free and Opensource *6Q5F 7GJ5+J6*
 
