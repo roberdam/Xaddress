@@ -9,7 +9,7 @@ Xaddress encodes the latitude & longitude of a place in a form that resembles a 
 
 ## Demo
 
-[TRY IT IN ENGLISH](http://www.xaddress.org/try?lng=en)    |    [PRUEBELO EN ESPAÑOL](http://www.xaddress.org/try?lng=es)
+[TRY IT IN ENGLISH](http://www.xaddress.org/try?lng=en)    |    [PRUEBALO EN ESPAÑOL](http://www.xaddress.org/try?lng=es)
 
 ```
 The demo site uses some free apis with limited requests per day, 
