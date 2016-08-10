@@ -82,6 +82,9 @@ ruby decode.rb "7150 MAGICAL PEARL - Maluku, Indonesia"
 | MAPCODE          | VQ6.1MFD                               |
 | OPENLOCATIONCODE | 6Q5F 7GJ5+J6                           |
 
+## TO DO
+* Filter the word list for inappropriate words
+
 ## Contributing
 There is a lot to do if you want to contribute:
 * Mobile App
