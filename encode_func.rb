@@ -2,6 +2,9 @@
 # Functions for encode.rb
 ############################################################################
 
+#!/bin/env ruby
+# encoding: utf-8
+
 def google_search(argumento)
   Geocoder::Configuration.lookup = :google
   #Uses google api to search for latitude,longitude
