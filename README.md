@@ -33,15 +33,15 @@ You can see right away the country and state where that Xaddress is located, and
 By default Xaddress create 2 kind of codes, each one independent from the other, the short code can be decoded by itself, it can have 1 meter accuracy, and is useful to storage or send it as a link, like [ubicate.me/NOMATAL-KOROFAD](http://ubicate.me/NOMATAL-KOROFAD)
 
 ## Encoding with the Ruby CLI.
-To decode plain latitude & longitude install first the gem geocoder
-```
-gem install geocoder
-```
+Now to get started with Xaddress you would perform the following:
 
-Then clone this repo and run:
 ```
+git clone https://github.com/roberdam/Xaddress.git
+cd Xaddress
+bundle
 ruby encode.rb "-6.7184,129.5080"
 ```
+
 You can use it without using geocoder by specify state and country in the command line:
 ```
 ruby encode.rb "-6.7184,129.5080" "Maluku, Indonesia"
