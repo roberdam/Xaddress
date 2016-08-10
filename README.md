@@ -30,7 +30,7 @@ If you want to transmit your Xaddress by phone you will say
 You can see right away the country and state where that Xaddress is located, and you can recognize it as an address.
 
 ####            3) SHORT CODE
-By default Xaddress create 2 kind of codes, each one independent from the other, the short code can be decoded by itself, it can have 1 Metter accuracy, and is useful to storage or send it as a link, like [ubicate.me/NOMATAL-KOROFAD](http://ubicate.me/NOMATAL-KOROFAD)
+By default Xaddress create 2 kind of codes, each one independent from the other, the short code can be decoded by itself, it can have 1 meter accuracy, and is useful to storage or send it as a link, like [ubicate.me/NOMATAL-KOROFAD](http://ubicate.me/NOMATAL-KOROFAD)
 
 ## Encoding with the Ruby CLI.
 To decode plain latitude & longitude install first the gem geocoder
