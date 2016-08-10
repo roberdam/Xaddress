@@ -7,6 +7,8 @@ Give 7 billion people an instant physical address that can be used offline and d
 
 Xaddress encodes the latitude & longitude of a place in a form that resembles a normal address and can be decoded back easily even in a low tech environment using paper, pen and a physical map.
 
+## Demo
+
 [TRY IT IN ENGLISH](http://www.xaddress.org/try?lng=en)    |    [PRUEBELO EN ESPAÑOL](http://www.xaddress.org/try?lng=es)
 
 ```
