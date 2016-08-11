@@ -82,6 +82,8 @@ ruby decode.rb "7150 MAGICAL PEARL - Maluku, Indonesia"
 | GEOHASH          | qyu1g0by7                              |
 | MAPCODE          | VQ6.1MFD                               |
 | OPENLOCATIONCODE | 6Q5F 7GJ5+J6                           |
+| WHAT3POKEMON     | [Cascoon Fletchinder Venipede Grovyle](http://www.what3pokemon.com/#Cascoon_Fletchinder_Venipede_Grovyle) |
+| WHAT3IKEA        | [amorf ingalund lakrits drömmar](http://www.what3ikea.com/#amorf_ingalund_lakrits_dr%C3%B6mmar) |
 
 ## TO DO
 * Filter the word list for inappropriate words
