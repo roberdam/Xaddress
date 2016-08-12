@@ -3,7 +3,6 @@
 # usage: ruby decode.rb "LIBRES 2989 - Asuncion,Paraguay "
 ########################################################
 require 'csv'
-require 'byebug'
 require_relative 'decode_func'
 
 Encoding.default_external = Encoding::UTF_8
@@ -28,15 +27,9 @@ end
 
 if $no_states[$pais].nil? then
       $estado = controla_states(ARGV)
-      if $estado[11].to_i > $estado[13].to_i then
-        va = $estado[11]
-        com = $estado[10]
-      else
-        va = $estado[13]
-        com = $estado[12]
-      end
-      va1 = $estado[11].to_i+$estado[13].to_i
-
+      va = $estado["combinaciones"]
+      com = $estado["bounds"]
+      va1 = va.to_i
 else
       if $datospais[9].to_i > $datospais[11].to_i then
         va = $datospais[9]
@@ -76,6 +69,7 @@ end
       if numpalabra=="0" then
           numpalabra="0000"
       end
+
       if adjetivo.nil? then
          latini=com.split("*")[0].split("@")[0].split(".")[0]
          lonini=com.split("*")[0].split("@")[1].split(".")[0]
