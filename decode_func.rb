@@ -63,7 +63,7 @@ def check_arguments(argumentos)
  end
  ubicacion= ARGV[0].split("-")[1].strip
  pais = controla_pais(ubicacion)
- $pais= pais[0]
+ $country = pais[0]
  $palabras=[]
  direccion.each do |pala|
    unless pala==$numero
@@ -108,7 +108,7 @@ def controla_states(argumento)
      else
        puts "State not found, you can try this options:"
        $datospais.each do |recorre|
-         puts "#{argum.split("-")[0]} - #{recorre["stateName2"]}, #{$pais_sp[$pais]}"
+         puts "#{argum.split("-")[0]} - #{recorre["stateName2"]}, #{$country_es[$country]}"
        end
        exit
      end
@@ -128,13 +128,13 @@ def controla_pais(argumento)
  end
   xpais= ""
   if pais.length==2 then
-        $paises.each do |busca|
+        $countries.each do |busca|
           if busca["countryCode"]==pais.upcase then
             xpais = busca
           end
         end
    else
-         $paises.each do |busca|
+         $countries.each do |busca|
            if (busca["countryName"].upcase==pais.upcase) or (busca["Nombre"].upcase==pais.upcase) then
               xpais = busca
             end
@@ -142,7 +142,7 @@ def controla_pais(argumento)
    end
    xoptions=[]
    if xpais=="" then
-         $paises.each do |busca|
+         $countries.each do |busca|
            if (busca["countryName"].upcase.include? pais.upcase) or (busca["Nombre"].upcase.include? pais.upcase) then
               xoptions << busca
             end
