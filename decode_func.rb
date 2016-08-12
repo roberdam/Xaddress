@@ -1,6 +1,6 @@
-def check_arguments(argumentos)
+def check_arguments(arguments)
   # If empty
-  if argumentos[0].nil? then
+  if arguments[0].nil?
     puts " "
     puts "ruby decode.rb 'WORD WORD NUMBER - (STATE),COUNTRY' "
     puts "ruby decode.rb 'NUMBER WORD WORD - (STATE),COUNTRY' "
@@ -12,91 +12,97 @@ def check_arguments(argumentos)
     exit
   end
   # Check formatting
-  if argumentos[0].split("-")[1].nil? then
+  if arguments[0].split("-")[1].nil?
     puts "Incorrect format, use : 'WORD WORD NUMBER - (STATE),COUNTRY'"
     puts "Separate the address from the country and state with a - "
     puts "or XXXXXXX-XXXXXXX for short addresses"
     exit
   end
-    if argumentos[0].split("-")[0].strip.length < 8 and argumentos[0].split("-")[1].strip.length < 8 then
-      short_decode(argumentos[0])
+  if arguments[0].split("-")[0].strip.length < 8 and arguments[0].split("-")[1].strip.length < 8
+      short_decode(arguments[0])
       exit
-    end
-    direccion = argumentos[0].split("-")[0].split(" ")
-    if direccion.count > 3 or direccion.count ==1 then
-      puts "Address must have this format :"
-      puts "WORD WORD NUMBER"
-      puts "WORD NUMBER"
-      puts "NUMBER WORD WORD"
-      puts "NUMBER WORD"
-      exit
-    end
-      okey="no"
-      cuantos = 0
-      $numero=""
-  direccion.each do |dire|
-      unless (dire =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
-        cuantos= cuantos+1
-        if dire.to_i <10000 then
-          okey="si"
-          $numero=dire
-          if dire.to_i<1000 then
-            $numero="0"+dire.to_i.to_s.strip
-          end
-          if dire.to_i<100 then
-            $numero="00"+dire.to_i.to_s.strip
-          end
-          if dire.to_i<10 then
-            $numero="000"+dire.to_i.to_s.strip
-          end
+  end
+  first_part = arguments[0].split("-")[0].split(" ")
+  if first_part.count > 3 or first_part.count ==1 then
+    puts "Address must have this format :"
+    puts "WORD WORD NUMBER"
+    puts "WORD NUMBER"
+    puts "NUMBER WORD WORD"
+    puts "NUMBER WORD"
+    exit
+  end
+  okey="no"
+  how_many_numbers = 0
+  $numero=""
+  first_part.each do |dire|
+    unless (dire =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
+      how_many_numbers += 1
+      if dire.to_i <10000 then
+        # Find a suitable number in address, add trailing zeroes
+        okey="si"
+        $numero=dire
+        if dire.to_i<1000 then
+          $numero="0"+dire.to_i.to_s.strip
         end
+        if dire.to_i<100 then
+          $numero="00"+dire.to_i.to_s.strip
+        end
+        if dire.to_i<10 then
+          $numero="000"+dire.to_i.to_s.strip
+        end
+      else
+        puts "Number in address must be < 9999"
+        exit
       end
+    end
   end
 
- if okey=="no" then
-   puts "number in address must be < 9999"
-   exit
- end
- if cuantos>1 then
-     puts "incorrect address format, use only one number"
-     exit
- end
- ubicacion= ARGV[0].split("-")[1].strip
- pais = controla_pais(ubicacion)
- $country = pais[0]
- $palabras=[]
- direccion.each do |pala|
-   unless pala==$numero
-     $palabras << cambia(pala).upcase
-   end
- end
- if $no_states[pais[0]].nil? then
-     $estados = CSV.read("states.csv", :headers => true )
-     states=[]
-     $estados.each do |guarda|
-        if guarda["countryCode"]==pais[0] then
-          states << guarda
-        end
-     end
-     return states
- else
-     return pais
- end
+  if okey=="no" then
+    puts "Must contain a number in address"
+    exit
+  end
+  if how_many_numbers > 1 then
+    puts "incorrect address format, use only one number"
+    exit
+  end
+
+  second_part = ARGV[0].split("-")[1].strip
+  # Search in second part for the country info, if found return the info in countries.csv
+  country_info = check_country(second_part)
+  $country = country_info[0]
+  $palabras=[]
+  first_part.each do |pala|
+    unless pala==$numero
+      $palabras << clean_characters(pala).upcase
+    end
+  end
+  if $no_states[$country].nil? then
+    $estados = CSV.read("states.csv", :headers => true )
+    states=[]
+    $estados.each do |guarda|
+      if guarda["countryCode"]==$country then
+        states << guarda
+      end
+    end
+    return states
+  else
+    return country_info
+  end
 end
 
 
 def controla_states(argumento)
  argum = argumento[0].dup
-  xestado = cambia(argum.split("-")[1].split(",")[0]).strip
+  xestado = clean_characters(argum.split("-")[1].split(",")[0]).strip
   estado=""
- $datospais.each do |recorre|
+ $country_data.each do |recorre|
    if recorre["stateName1"].upcase==xestado.upcase or recorre["stateName2"].upcase==xestado.upcase or recorre["stateName3"].upcase==xestado.upcase or recorre["googleName"].upcase==xestado.upcase then
      estado = recorre
    end
  end
  if estado=="" then
      opciones=[]
-     $datospais.each do |recorre|
+     $country_data.each do |recorre|
        if recorre["stateName1"].upcase.include? xestado.upcase or recorre["stateName2"].include? xestado.upcase or recorre["stateName3"].include? xestado.upcase or recorre["googleName"].include? xestado.upcase then
          opciones << recorre
        end
@@ -107,7 +113,7 @@ def controla_states(argumento)
        exit
      else
        puts "State not found, you can try this options:"
-       $datospais.each do |recorre|
+       $country_data.each do |recorre|
          puts "#{argum.split("-")[0]} - #{recorre["stateName2"]}, #{$country_es[$country]}"
        end
        exit
@@ -117,54 +123,57 @@ def controla_states(argumento)
 
 end
 
-def controla_pais(argumento)
- argum = argumento.dup
- ubicacion = argum.split(",")
- pais =""
- if ubicacion.count ==1 then
-    pais= cambia(ubicacion[0]).strip
- else
-    pais=cambia(ubicacion.last).strip
- end
-  xpais= ""
-  if pais.length==2 then
-        $countries.each do |busca|
-          if busca["countryCode"]==pais.upcase then
-            xpais = busca
-          end
-        end
-   else
-         $countries.each do |busca|
-           if (busca["countryName"].upcase==pais.upcase) or (busca["Nombre"].upcase==pais.upcase) then
-              xpais = busca
-            end
-          end
-   end
-   xoptions=[]
-   if xpais=="" then
-         $countries.each do |busca|
-           if (busca["countryName"].upcase.include? pais.upcase) or (busca["Nombre"].upcase.include? pais.upcase) then
-              xoptions << busca
-            end
-          end
-           if ubicacion.count>1 then
-             anterior = " "+ubicacion[0]+","
-           else
-             anterior = ""
-           end
-             puts "Country not fond, You can try this instead:"
-          xoptions.each do |opci|
-             puts "#{ARGV[0].split("-")[0]}-#{anterior} #{opci["Nombre"]}"
-          end
-          exit
-   else
-     return xpais
-   end
+def check_country(argument)
+  # Search the country in arguments and return info about it from countries.csv
+  argum = argument.dup
+  location = argum.split(",")
+  country = ""
+  if location.count == 1
+    country = clean_characters(location[0]).strip
+  else
+    country = clean_characters(location.last).strip
+  end
+  xcountry= ""
+  if country.length==2
+    #If is the 2 characters country code
+    $countries.each do |xsearch|
+      if xsearch["countryCode"]==country.upcase
+        xcountry = xsearch
+      end
+    end
+  else
+    # Is not 2 character country code
+    $countries.each do |xsearch|
+      if (xsearch["countryName"].upcase==country.upcase) or (xsearch["Nombre"].upcase==country.upcase)
+        xcountry = xsearch
+      end
+    end
+  end
+  xoptions=[]
+  if xcountry==""
+    $countries.each do |xsearch|
+      if (xsearch["countryName"].upcase.include? country.upcase) or (xsearch["Nombre"].upcase.include? country.upcase)
+        xoptions << xsearch
+      end
+    end
 
+    if location.count>1
+      anterior = " "+location[0]+","
+    else
+      anterior = ""
+    end
+    puts "Country not fond, You can try this instead:"
+    xoptions.each do |opci|
+      puts "#{ARGV[0].split("-")[0]}-#{anterior} #{opci["Nombre"]}"
+    end
+    exit
+  else
+    return xcountry
+  end
 end
 
 
-def cambia (texto)
+def clean_characters(texto)
     @retorno = texto
     @retorno.gsub!("Á", "A")
     @retorno.gsub!("á", "a")
@@ -186,10 +195,6 @@ def cambia (texto)
     @retorno.gsub!("ắ", "a")
     @retorno.gsub!("ə", "a")
     @retorno.gsub!("ằ", "a")
-
-
-
-
 
 
     @retorno.gsub!("É", "E")
@@ -277,7 +282,6 @@ def cambia (texto)
     @retorno.gsub!("Z̧", "Z")
     @retorno.gsub!("z̧", "z")
     @retorno.gsub!("z̄", "z")
-
 
     @retorno.gsub!("š", "s")
     @retorno.gsub!("Š", "S")

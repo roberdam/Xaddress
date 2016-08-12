@@ -16,39 +16,47 @@ $country_en = {}
 $countries.each do |x|
   # X in $no_states mean that no states subdivision will be required for that country. (too small)
   $no_states[x[0]]=x["tipo"]
+  # Arrays with the country name in english or spanish.
   $country_es[x[0]] = x["Nombre"]
   $country_en[x[0]] = x["countryName"]
 end
-$datospais = check_arguments(ARGV)
+
+# $country_data will contain the record of the country.csv or list of states of that country from states.csv
+$country_data = check_arguments(ARGV)
+
+# Array with the description for the checksum or 'avatar' images displayed in spanish/english
 $images =[]
 CSV.read("images.csv").each do |ima|
     $images[ima[0].to_i]=ima[2]+"/"+ima[1]
 end
 
+# If states are used for this country, we get states boundaries and combination, else we get country boundaries and combinations.
 if $no_states[$country].nil?
-      $estado = controla_states(ARGV)
-      va = $estado["combinaciones"]
-      com = $estado["bounds"]
-      va1 = va.to_i
+  country_state = controla_states(ARGV)
+  va = country_state["combinaciones"]
+  com = country_state["bounds"]
+  va1 = va.to_i
 else
-      va = $datospais["combinaciones"]
-      com = $datospais["bounds"]
-      va1 = va.to_i
+  va = $country_data["combinaciones"]
+  com = $country_data["bounds"]
+  va1 = va.to_i
 end
 
-     if va1>0 and $palabras.count==1
-        puts "Must have 2 words for your location"
-        puts "Example : WORD WORD NUMBER"
-        puts "NUMBER WORD WORD"
-        exit
-      end
-      if va1==0 and $palabras.count>1
-        puts "Must have 1 words for your location"
-        puts "Example : WORD NUMBER"
-        puts "NUMBER WORD"
-        exit
-      end
-      if (ARGV[0].strip[0] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
+# Checks for one word addresses
+if va1>0 and $palabras.count==1
+  puts "Must have 2 words for your location"
+  puts "Example : WORD WORD NUMBER"
+  puts "NUMBER WORD WORD"
+  exit
+end
+if va1==0 and $palabras.count>1
+  puts "Must have 1 words for your location"
+  puts "Example : WORD NUMBER"
+  puts "NUMBER WORD"
+  exit
+end
+
+if (ARGV[0].strip[0] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
         palabra = $palabras[0]
         adjetivo = $palabras[1]
       else
@@ -77,12 +85,12 @@ end
           lalo= codilalo(latini,latfin,lonini,lonfin)
       end
       if $palabras[1].nil?
-          generaimagen = $palabras[0]+$numero+($estado["stateCode"].gsub("-",""))
+          generaimagen = $palabras[0]+$numero+(country_state["stateCode"].gsub("-",""))
       else
-        if $estado.nil?
-          generaimagen = palabra+adjetivo+$numero+($datospais["countryCode"])
+        if country_state.nil?
+          generaimagen = palabra+adjetivo+$numero+($country_data["countryCode"])
         else
-          generaimagen = palabra+adjetivo+$numero+($estado["stateCode"].gsub("-",""))
+          generaimagen = palabra+adjetivo+$numero+(country_state["stateCode"].gsub("-",""))
         end
       end
       $lat=  lalo.split(",")[0]+"."+$numero[0..1]+numpalabra[0..1]
