@@ -1,7 +1,8 @@
 ![Logo](https://cloud.githubusercontent.com/assets/3354868/17249828/b7e84ef0-556f-11e6-80e7-10bd51c46143.png)
 # XADDRESS
 Give 7 billion people an instant physical address that can be used offline and decoded with low tech (pen & paper).
-
+## Read it on Medium
+[An Algorithm that can give an instant solution to 7b people] (https://medium.com/@roberdam/an-algorithm-that-can-give-an-instant-solution-to-7-billion-people-60bf628205a2)
 ## How it works.
 <img src="https://cloud.githubusercontent.com/assets/3354868/17251870/6bdbda00-5578-11e6-9162-1e5200cffa34.gif" width="700">
 
