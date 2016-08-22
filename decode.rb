@@ -32,7 +32,7 @@ end
 
 # If states are used for this country, we get states boundaries and combination, else we get country boundaries and combinations.
 if $no_states[$country].nil?
-  country_state = controla_states(ARGV)
+  country_state = check_states(ARGV)
   va = country_state["combinaciones"]
   com = country_state["bounds"]
   va1 = va.to_i
@@ -43,13 +43,13 @@ else
 end
 
 # Checks for one word addresses
-if va1>0 and $palabras.count==1
+if va1>0 and $words.count==1
   puts "Must have 2 words for your location"
   puts "Example : WORD WORD NUMBER"
   puts "NUMBER WORD WORD"
   exit
 end
-if va1==0 and $palabras.count>1
+if va1==0 and $words.count>1
   puts "Must have 1 words for your location"
   puts "Example : WORD NUMBER"
   puts "NUMBER WORD"
@@ -57,14 +57,14 @@ if va1==0 and $palabras.count>1
 end
 
 if (ARGV[0].strip[0] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
-        palabra = $palabras[0]
-        adjetivo = $palabras[1]
+        palabra = $words[0]
+        adjetivo = $words[1]
       else
-        palabra = $palabras[1]
-        adjetivo = $palabras[0]
+        palabra = $words[1]
+        adjetivo = $words[0]
       end
-       if va1==0 and $palabras.count==1
-          palabra = $palabras[0]
+       if va1==0 and $words.count==1
+          palabra = $words[0]
           adjetivo = nil
        end
       numpalabra= codigo(palabra)
@@ -84,17 +84,17 @@ if (ARGV[0].strip[0] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
           lonfin=com.split("*")[1].split("@")[1].split(".")[0]
           lalo= codilalo(latini,latfin,lonini,lonfin)
       end
-      if $palabras[1].nil?
-          generaimagen = $palabras[0]+$numero+(country_state["stateCode"].gsub("-",""))
+      if $words[1].nil?
+          generaimagen = $words[0]+$number+(country_state["stateCode"].gsub("-",""))
       else
         if country_state.nil?
-          generaimagen = palabra+adjetivo+$numero+($country_data["countryCode"])
+          generaimagen = palabra+adjetivo+$number+($country_data["countryCode"])
         else
-          generaimagen = palabra+adjetivo+$numero+(country_state["stateCode"].gsub("-",""))
+          generaimagen = palabra+adjetivo+$number+(country_state["stateCode"].gsub("-",""))
         end
       end
-      $lat=  lalo.split(",")[0]+"."+$numero[0..1]+numpalabra[0..1]
-      $lon=  lalo.split(",")[1]+"."+$numero[2..3]+numpalabra[2..3]
+      $lat=  lalo.split(",")[0]+"."+$number[0..1]+numpalabra[0..1]
+      $lon=  lalo.split(",")[1]+"."+$number[2..3]+numpalabra[2..3]
       puts "Location = #{$lat},#{$lon}"
       puts "(#{$images[codigo_imagen(generaimagen).to_s[0..1].to_i].strip})"
 

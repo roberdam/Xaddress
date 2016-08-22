@@ -1,0 +1,189 @@
+# Decode a Xaddress to latitude & Longitude
+# Pseudocode logic
+# Working example : 7150 MAGICAL PEARL - Maluku, Indonesia
+
+START
+countries = READ(countries.csv)
+states = READ(states.csv)
+xaddress_country = get_country()
+
+# column "tipo" in countries.csv is used to mark countries that does not need the state subdivision, if tipo == "X" we will use
+# country boundaries instead of state boundaries to decode the Xaddress. If "tipo" is empty we will ask for the state
+
+combinations = xaddress_country["combinaciones"]
+comb_table = xaddress_country["bounds"]
+
+if xaddress_country["tipo"]==empty
+  xaddress_state = get_state()
+  combinations = xaddress_state["combinaciones"]
+  comb_table = xaddress_state["bounds"]
+end
+
+# column "combinaciones" (combinations) stores the possible combinations of latitude & longitude for a specific country or state,
+# For example if you draw a box over Martinique (MQ) the boundaries of that box will be 14.8787163,-60.8105278 and 14.3886471,-61.229093
+# stored in the "boundaries" column, in the form of 14.8787163@-60.8105278*14.3886471@-61.229093
+# the first value is the upper right side of the box and the second the lower left side of the box, so if we only take the values before
+# the dot, any location inside Martinique can have 2 possible values, 1) 14,-60 2) 14,-61 and the "combinaciones" column will have a value of 2
+# In the case of the Vatican City, the box will be from 41.748904@12.663519*41.7316419@12.6483761 (41,12) so combinations will be 0
+# When column "combinaciones" is 0 you dont need a second word to store the value so you will have a Xaddress with one word and one number.
+
+# We need to check this, so if the country or state selected has "combinaciones" = 0 it should have only one word, else it should have 2 words.
+
+
+xaddress_address = get_address()
+# The result in this case will be xaddress_word1 = "PEARL", xaddress_word2 = "MAGICAL", xaddress_number="7150"
+
+xaddress_encoded_word1 = encode(xaddress_word1)
+# xaddress_encoded_word1 will be 8480
+
+if combinations > 0
+  xaddress_encoded_word2 = encode(xaddress_word2)
+  # xaddress_encoded_word2 will be 2584
+
+  create_combination_table(comb_table)
+  # How many digits from xaddress_encoded_word2 we should consider depends on the lenght of the combination_table, if the table is up to
+  # 9 then we take the first digit, if the table is up to 99, we take the first 2 digits, if the table is up to 999 we take the first 3, and so on.
+
+  search_in_table = xaddress_encoded_word2[0..str(combination_table.count).lenght]
+  # In this case search_in_table will have 25
+
+  final_latlong = combination_table[serch_in_table]
+  # We get element 25 of combination_table to get the final latitude and longitude, in this case will be -6,129
+
+  lat0 = get the first part of final_latlong before the comma
+  # in this case -6
+  lat1 = get the first 2 digits of xaddress_number
+  # in this case 71
+  lat2 = get the first 2 digits of xaddress_word1
+  # in this case 84
+  lon0 = get the part of final_latlong after the comma
+  # in this case 129
+  lon1 = get the last 2 digits of xaddress_number
+  # in this case 50
+  lon2 = get the last 2 digits of xaddress_word1
+  # in this case 80
+
+else
+
+  lat0 = get the latitude from comb_table
+  lat1 = get the first 2 digits of xaddress_number
+  lat2 = get the first 2 digits of xaddress_word1
+  lon0 = get the longitude from comb_table
+  lon1 = get the last 2 digits of xaddress_number
+  lon2 = get the last 2 digits of xaddress_word1
+
+end
+
+  decoded_location = lat0+"."+lat1+lat2 + "," + lon0+"."+lon1+lon2
+  print "this is the decoded location " +decoded_location
+
+END
+
+
+#----------------------------------- ROUTINES ------------------------------------
+
+
+DEF GET_COUNTRY()
+# Get the country in the Xaddress, Example : Indonesia.
+  show dropdown with countries["countryName"]
+  on select return entire record in countries.csv
+END
+
+
+
+DEF GET_STATE()
+ # Search for all states from the country selected, and select the Xaddress state, Example : Maluku
+  selected_states=[]
+  states.each
+    if state["countryCode"] == xaddress_country["countryCode"]
+      selected_states << state
+    end
+  end
+  show dropdown with selected_states
+  on select return record in states.csv
+END
+
+
+
+DEF GET_ADDRESS()
+# Get the number and words in the Xaddres, Example : 7150 MAGICAL PEARL
+# And store it in variables: number, word1, word2 depending on the order.
+
+  get string_xaddress
+  # Example : string_xaddress will contain 7150 MAGICAL PEARL.
+
+# Check formating
+  if string_xaddress does not contain a 4 digit number
+    print "error, Xaddress must contain a 4 digit number2
+    exit
+  end
+
+  #Split and count how many elements in the address
+  part = split(string_xaddres, " ")
+  parts = split(string_xaddres, " ").count
+
+  if parts == 3 and combinaciones==0
+    print "error, Xaddress must contain only 1 word."
+    exit
+  end
+
+  if parts == 2 and combinaciones >0
+    print "error , Xaddress must contain 2 words"
+    exit
+  end
+
+  # Now we assign number,word1 and word2
+  if part[0] is a number
+    if parts == 3
+      xaddress_number = part[0]
+      xaddress_word1 = part[2]
+      xaddress_word2 = part[1]
+    else
+      xaddress_number = part[0]
+      xaddress_word1 = part[1]
+    end
+
+  else
+
+    if parts==3
+      xaddress_word1 = part[0]
+      xaddress_word2 = part[1]
+      xaddress_number= part[2]
+    else
+      xaddress_word1 = part[0]
+      xaddress_number= part[1]
+    end
+
+  end
+
+END
+
+
+DEF ENCODE(word)
+  encoded_value=[]
+  word.each do letter
+    encoded_value << ASCII value of (letter)
+  end
+  #Divide and multiply each ASCII value
+  temp = encoded_value[0]/encoded_value[1]*encoded_value[2]/encoded_value[3]*encoded_value[4]....encoded_value[N]
+  final_value = get temp and take the first 4 digits after the dot
+  return (final_value)
+END
+
+DEF CREATE_COMBINATION_TABLE(comb_table)
+ extract initial_latitude,final_latitude, initial_longitude, final_longitude from comb_table
+
+ # in the case of Maluku comb_table will be -1.37872@134.908555*-8.345391@125.722838
+ # so initial_latitude= -8, final_latitude=-1, initial_longitude=125, final_longitude=134
+
+ counter =1
+ combination_table=[]
+ from [initial_latitude to final_latitude] do lati
+   from [initial_longitude to final_longitude] do longi
+     combination_table[counter] = [lati,longi]
+     counter = counter + 1
+   end
+ end
+
+ # In this case the result will look like  : 01 = -8,125 | 02 = -8,126 | 03 = -08,127| ... 80=-1,134
+END

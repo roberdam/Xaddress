@@ -33,22 +33,22 @@ def check_arguments(arguments)
   end
   okey="no"
   how_many_numbers = 0
-  $numero=""
+  $number=""
   first_part.each do |dire|
     unless (dire =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
       how_many_numbers += 1
       if dire.to_i <10000 then
         # Find a suitable number in address, add trailing zeroes
         okey="si"
-        $numero=dire
+        $number = dire
         if dire.to_i<1000 then
-          $numero="0"+dire.to_i.to_s.strip
+          $number = "0"+dire.to_i.to_s.strip
         end
         if dire.to_i<100 then
-          $numero="00"+dire.to_i.to_s.strip
+          $number = "00"+dire.to_i.to_s.strip
         end
         if dire.to_i<10 then
-          $numero="000"+dire.to_i.to_s.strip
+          $number = "000"+dire.to_i.to_s.strip
         end
       else
         puts "Number in address must be < 9999"
@@ -70,10 +70,10 @@ def check_arguments(arguments)
   # Search in second part for the country info, if found return the info in countries.csv
   country_info = check_country(second_part)
   $country = country_info[0]
-  $palabras=[]
+  $words=[]
   first_part.each do |pala|
-    unless pala==$numero
-      $palabras << clean_characters(pala).upcase
+    unless pala == $number
+      $words << clean_characters(pala).upcase
     end
   end
   if $no_states[$country].nil? then
@@ -91,7 +91,7 @@ def check_arguments(arguments)
 end
 
 
-def controla_states(argumento)
+def check_states(argumento)
  argum = argumento[0].dup
   xestado = clean_characters(argum.split("-")[1].split(",")[0]).strip
   estado=""
