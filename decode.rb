@@ -3,6 +3,7 @@
 # usage: ruby decode.rb "LIBRES 2989 - Asuncion,Paraguay "
 ########################################################
 require 'csv'
+require 'byebug'
 require_relative 'decode_func'
 
 Encoding.default_external = Encoding::UTF_8
@@ -85,7 +86,11 @@ if (ARGV[0].strip[0] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
           lalo= codilalo(latini,latfin,lonini,lonfin)
       end
       if $words[1].nil?
+        if country_state.nil?
+          generaimagen = $words[0]+$number+($country_data["countryCode"])
+        else
           generaimagen = $words[0]+$number+(country_state["stateCode"].gsub("-",""))
+        end
       else
         if country_state.nil?
           generaimagen = palabra+adjetivo+$number+($country_data["countryCode"])
