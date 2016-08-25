@@ -92,3 +92,8 @@ There is a lot to do if you want to contribute:
 * Language packs
 * Spread the word
 * Errors/corrections/improvement, raise an issue on Github and I would be more than happy to discuss :)
+
+## Work in progress
+[Xaddress for Node] (https://github.com/therebelrobot/Xaddress-node) by @therebelrobot
+
+[Xaddress - The Android App] (https://github.com/spidergears/XAddress-Android) by @spidergears
