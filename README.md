@@ -83,8 +83,10 @@ ruby decode.rb "7150 MAGICAL PEARL - Maluku, Indonesia"
 | MAPCODE          | VQ6.1MFD                               |
 | OPENLOCATIONCODE | 6Q5F 7GJ5+J6                           |
 
-## TO DO
-* Filter the word list for inappropriate words
+## Port Xaddress to other languages
+Check the pseudocode guide to implement Xaddress in other languages, apps or internal systems.
+https://github.com/roberdam/Xaddress/tree/master/pseudocode
+
 
 ## Contributing
 There is a lot to do if you want to contribute:
