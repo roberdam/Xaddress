@@ -37,7 +37,26 @@ def google_search(argumento)
        end
      end
      if $estado_info.count==0 then
-           puts "Error, state in Google API not found on states.csv"
+          # second try searching, this time fuzzy search
+          encfinal = 0.0
+          distancia = FuzzyStringMatch::JaroWinkler.create( :native )
+          geocoded.each do |q|
+             if q.data["address_components"][0]["types"][0] == "administrative_area_level_1" then
+                 elestado = cambia(q.data['formatted_address'])
+                 $pais_states.each do |x|
+                    actual = distancia.getDistance(x["googleName"].upcase,elestado.upcase)
+                     if actual > encfinal
+                       encfinal= actual
+                       $estado_info =[]
+                       $estado_info << x
+                       $estado = $estado_info[0]["stateCode"]
+                     end
+                 end
+             end
+           end
+     end
+     if $estado_info.count==0 then
+           puts "Error, state in Google API not found on states.csv "
            exit
      end
 

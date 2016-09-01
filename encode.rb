@@ -10,7 +10,8 @@
 ###########################################################################
 
 require 'csv'
-require 'geocoder'    
+require 'geocoder'
+require 'fuzzystringmatch'
 require_relative 'encode_func'
 
 Encoding.default_external = Encoding::UTF_8

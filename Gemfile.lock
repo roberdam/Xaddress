@@ -2,9 +2,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     geocoder (1.3.7)
+    fuzzy-string-match
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   geocoder (~> 1.3)
+  fuzzy-string-match

@@ -2502,10 +2502,10 @@ JE,X,St Saviour,St Saviour,Saint Saviour,"","",Jersey,49.19517,-2.09238,"",0
 JE,X,St. Brelade,St. Brelade,Saint Brelade,"","",Jersey,49.19056,-2.20056,"",0
 JE,X,Trinity,Trinity,Trinity,"","",Jersey,49.23472,-2.09,"",0
 VA,X,Vatican City,"",Vatican City,"","",Vatican City,41.90236,12.45332,"",0
-GB,ENG,England,England,England,"England, UK",administrative_area_level_1,United Kingdom,52.16045,-0.70312,55.8111127@1.7629159*49.8647877@-6.4124324,56
-GB,NIR,Northern Ireland,Northern Ireland,Northern Ireland,"Northern Ireland, UK",administrative_area_level_1,United Kingdom,54.5,-6.5,55.31294@-5.426810100000001*54.02261@-8.17754,8
-GB,SCT,Scotland,Scotland,Scotland,"Scotland, UK",administrative_area_level_1,United Kingdom,56,-4,60.84571990000001@-0.7247473999999999*54.6332381@-8.6492466,63
-GB,WLS,Wales,Wales,Wales,"Wales, UK",administrative_area_level_1,United Kingdom,52.5,-3.5,53.4356935@-2.6497994*51.3749686@-5.482469699999999,12
+GB,GB-ENG,England,England,England,"England, UK",administrative_area_level_1,United Kingdom,52.16045,-0.70312,55.8111127@1.7629159*49.8647877@-6.4124324,56
+GB,GB-NIR,Northern Ireland,Northern Ireland,Northern Ireland,"Northern Ireland, UK",administrative_area_level_1,United Kingdom,54.5,-6.5,55.31294@-5.426810100000001*54.02261@-8.17754,8
+GB,GB-SCT,Scotland,Scotland,Scotland,"Scotland, UK",administrative_area_level_1,United Kingdom,56,-4,60.84571990000001@-0.7247473999999999*54.6332381@-8.6492466,63
+GB,GB-WLS,Wales,Wales,Wales,"Wales, UK",administrative_area_level_1,United Kingdom,52.5,-3.5,53.4356935@-2.6497994*51.3749686@-5.482469699999999,12
 AF,AF-BDS,Badakhshan,Badakhshan,Badakhshān,"Badakhshan, Afghanistan",administrative_area_level_1,Afghanistan,36.75,72,38.4906109@74.8901951*35.44512100000001@69.98609689999999,24
 AF,AF-BDG,Badghis,Badghis,Badghis,"Badghis, Afghanistan",administrative_area_level_1,Afghanistan,35,63.75,36.041935@65.07057689999999*34.51659600000001@62.673593,12
 AF,AF-BAL,Balkh,Balkh,Balkh,"Balkh, Afghanistan",administrative_area_level_1,Afghanistan,36.75,67,37.386745@68.20784710000001*35.6703189@66.256271,9
