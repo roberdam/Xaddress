@@ -17,10 +17,11 @@ The demo site uses some free apis with limited requests per day,
 some functionality might be unavailable on high demand.
 ```
 ## How it looks
-![looks] (https://cloud.githubusercontent.com/assets/3354868/17262858/d616e1ca-55ab-11e6-9d8a-78dd524a4063.png)
+![looks] (https://github.com/roberdam/Xaddress/blob/master/images/looks.png)
 
 ## Features
-![parts] (https://cloud.githubusercontent.com/assets/3354868/17264547/bc36ac22-55b5-11e6-9aae-e64677c2d5bc.png)
+![parts] (https://github.com/roberdam/Xaddress/blob/master/images/parts.png)
+
 ####            1) VISUAL AVATAR
 Used like a visual hash to ensure that you write the Xaddress right, if you change any letter it will generate another image, for example MAGICAL PEARL**S** will show you a different image so you can know that you write a wrong address.
 
@@ -94,8 +95,3 @@ There is a lot to do if you want to contribute:
 * Language packs
 * Spread the word
 * Errors/corrections/improvement, raise an issue on Github and I would be more than happy to discuss :)
-
-## Work in progress
-[Xaddress for Node] (https://github.com/therebelrobot/Xaddress-node) by @therebelrobot
-
-[Xaddress - The Android App] (https://github.com/spidergears/XAddress-Android) by @spidergears
