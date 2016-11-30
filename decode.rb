@@ -103,3 +103,4 @@ if (ARGV[0].strip[0] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/).nil?
       puts "Location = #{$lat},#{$lon}"
       puts "(#{$images[codigo_imagen(generaimagen).to_s[0..1].to_i].strip})"
 
+

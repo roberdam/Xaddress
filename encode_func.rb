@@ -329,6 +329,7 @@ def check_arguments(argu)
     $arg_pais_state = $argumentos[1]
 end
 
+
 def codigo_imagen(texto)
   a=texto[0].ord.to_f
   if texto.length>1 then
@@ -339,19 +340,16 @@ def codigo_imagen(texto)
         end
         if opera==2 then
            a=a * texto[i].ord
+           a = a + texto[i].ord
+           opera = 0
         end
-        if opera==3 then
-           a=a + texto[i].ord
-        end
-        opera = opera +1
-        if opera==4 then
-           opera=1
-        end
+        a = a.round(15)
+        opera = opera + 1
     end
   end
-          long = a.to_s.split(".")[1].length
-          return a.to_s.split(".")[1][long-4..long-1]
+      return a.to_s.split(".")[1][6..7]
 end
+
 
 
 def despliega(indice, cuantos)
