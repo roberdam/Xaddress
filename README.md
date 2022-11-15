@@ -13,7 +13,7 @@ Xaddress encodes the latitude & longitude of a place in a form that resembles a 
 [TRY IT IN ENGLISH](http://www.xaddress.org/try?lng=en)    |    [PRUEBALO EN ESPAÑOL](http://www.xaddress.org/try?lng=es)
 
 ```
-The demo site uses some free apis with limited requests per day, 
+The demo site uses some free apis with limited requests per day,
 some functionality might be unavailable on high demand.
 ```
 ## How it looks
@@ -25,7 +25,7 @@ some functionality might be unavailable on high demand.
 ####            1) VISUAL AVATAR
 Used like a visual hash to ensure that you write the Xaddress right, if you change any letter it will generate another image, for example MAGICAL PEARL**S** will show you a different image so you can know that you write a wrong address.
 
-If you want to transmit your Xaddress by phone you will say 
+If you want to transmit your Xaddress by phone you will say
 >    "7150 MAGICAL PEARL - Maluku ,Indonesia"   my avatar is a boot
 
 ####            2) COUNTRY AND STATE
@@ -66,14 +66,15 @@ ruby decode.rb "7150 MAGICAL PEARL - Maluku, Indonesia"
 
 
 ## CONS:
-* May take you some effort to find a suitable address 
+* May take you some effort to find a suitable address
 * 10mts accuracy with the present form.
- 
+
 ## ALTERNATIVES:
 * [What3words] (http://what3words.com) -  Uses 3 words to define any location *percolator.surmount.retooled*, commercial option with a patented algorithm.
 * [Geohash] (http://geohash.org/) - Free and Opensource *qyu1g0by7*
 * [Mapcode] (http://www.mapcode.com/) - Free with Apache License Version 2.0. *VQ6.1MFD*
 * [Openlocationcode] (http://openlocationcode.com/) - Free and Opensource *6Q5F 7GJ5+J6*
+* [Geogrids] (https://gitlab.com/IvanSanchez/geogrids) - Free and Open-Source (WTF public license), powering what3fucks, www.what3pokemon.com *Growlithe Espurr Caterpie*, www.what3ikea.com *hällestad upphetta bullar* and www.what3goshdarnits.com *mother-trucker flim-flam crapola*.
 
 ## Compare encodings:
 | Option           | Location :  -6.7184 , 129.5080         |
@@ -83,6 +84,8 @@ ruby decode.rb "7150 MAGICAL PEARL - Maluku, Indonesia"
 | GEOHASH          | qyu1g0by7                              |
 | MAPCODE          | VQ6.1MFD                               |
 | OPENLOCATIONCODE | 6Q5F 7GJ5+J6                           |
+| WHAT3POKEMON     | [Cascoon Fletchinder Venipede Grovyle](http://www.what3pokemon.com/#Cascoon_Fletchinder_Venipede_Grovyle) |
+| WHAT3IKEA        | [amorf ingalund lakrits drömmar](http://www.what3ikea.com/#amorf_ingalund_lakrits_dr%C3%B6mmar) |
 
 ## Port Xaddress to other languages
 Check the pseudocode guide to implement Xaddress in other languages, apps or internal systems.
